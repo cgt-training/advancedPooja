@@ -6,6 +6,10 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use common\models\Company;
+use common\models\Branches;
+use common\models\Customer;
+use common\models\Department;
 
 /**
  * Site controller
@@ -60,7 +64,16 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $company = Company::find();
+        $branches = Branches::find();
+        $department = Department::find();
+        $customer = Customer::find();
+        return $this->render('index',[
+            'company' => $company->count(),
+            'branches' => $branches->count(),
+            'department' => $department->count(),
+            'customer' => $customer->count(),
+        ]);
     }
 
     /**

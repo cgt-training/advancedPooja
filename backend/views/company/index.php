@@ -53,9 +53,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'c_createDate',
                  // 'company_status',
                 [
-                    'attribute' => 'img',
+                    'attribute' => 'company_logo',
                     'format' => 'html',
-                    'label' => 'Company Logo',
                     'value' => function ($dataProvider) {
                         return Html::img('@web/'.$dataProvider['company_logo'],
                             ['width' => '60px', 'class' => 'img-responsive']);

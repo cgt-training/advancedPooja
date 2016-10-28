@@ -103,10 +103,17 @@ class CustomerController extends Controller
             }
             // return $this->redirect(['view', 'id' => $model->cust_id]);
         } else {
-            return $this->renderAjax('create', [
-                'model' => $model,
-                'locationList' => $locationList,
-            ]);
+            if(Yii::$app->request->isAjax){
+                return $this->renderAjax('create', [
+                    'model' => $model,
+                    'locationList' => $locationList,
+                ]);
+            } else {
+                return $this->render('create', [
+                    'model' => $model,
+                    'locationList' => $locationList,
+                ]);
+            }
         }
     }
 
@@ -124,17 +131,10 @@ class CustomerController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->cust_id]);
         } else {
-            if(Yii::$app->request->isAjax){
                 return $this->renderAjax('update', [
                     'model' => $model,
                     'locationList' => $locationList,
                 ]);
-            } else {
-                return $this->render('update', [
-                    'model' => $model,
-                    'locationList' => $locationList,
-                ]);
-            }
         }
     }
 

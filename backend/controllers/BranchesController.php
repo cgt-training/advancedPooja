@@ -58,6 +58,7 @@ class BranchesController extends Controller
     {
         $searchModel = new BranchesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
 
         if(Yii::$app->request->isAjax){
             return $this->renderAjax('index', [

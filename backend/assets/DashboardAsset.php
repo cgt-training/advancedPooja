@@ -24,6 +24,8 @@ class DashboardAsset extends AssetBundle
         'css/daterangepicker.css',
         'css/bootstrap3-wysihtml5.min.css',
         'css/site.css',
+        'css/fullcalendar.min.css',
+        // 'css/fullcalendar.print.css',
     ];
     public $js = [
         // 'js/jquery-2.2.3.min.js',
@@ -43,6 +45,7 @@ class DashboardAsset extends AssetBundle
         'js/app.min.js',
         'js/dashboard.js',
         'js/demo.js',
+        'js/fullcalendar.min.js',
         'js/bootbox.min.js',
         'js/main.js',
     ];

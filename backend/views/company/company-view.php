@@ -14,28 +14,36 @@ $this->title = 'Companies List';
 $this->params['breadcrumbs'][] = ['label' => 'Companies', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="company-index">
+<div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Company View</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                	<tr>
+                  		<th>Company Name</th>
+            			<th>Company Logo</th>
+                	</tr>
+                </thead>
+                <tbody>
+                	<?php foreach ($companyList as $company): ?>
+			            <tr style="font-size:large">
+			                <td><?= Html::encode("$company->company_name") ?></td>
+			                <td><?=Html::img("@web/$company->company_logo",
+			                            ['width' => '20%']); ?></td>
+			            </tr>
+			        <?php endforeach; ?>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?= Html::a('Back', ['index'], ['class' =>'btn btn-default back_to_index']) ?>
-    <table id="company-list-table">
-        <tr style="font-size:x-large">
-            <th>Company Name</th>
-            <th>Company Logo</th>
-        </tr>
-        <?php foreach ($companyList as $company): ?>
-            <tr style="font-size:large">
-                <td><?= Html::encode("$company->company_name") ?></td>
-                <td><?=Html::img("@web/$company->company_logo",
-                            ['width' => '20%']); ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
-
-    <div class="pull-right">
-        <?php echo LinkPager::widget([
-            'pagination' => $pagination,
-            ]); 
-        ?>
-    </div>
-</div>
+        </div>
+        <!-- /.col -->
+      </div>

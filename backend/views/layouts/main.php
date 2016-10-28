@@ -29,9 +29,9 @@ DashboardAsset::register($this);
     <!-- Logo -->
     <a href="index2.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>SSIM</b></span>
+      <span class="logo-mini"><b></b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>SSIM</b></span>
+      <span class="logo-lg"><b>ADVANCED</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -46,49 +46,32 @@ DashboardAsset::register($this);
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="<?php echo Url::base();?>/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              <img src="<?php echo Url::base();?>/dist/img/avatar.jpeg" class="user-image" alt="User Image">
+              <span class="hidden-xs text-capitalize"><?php echo Yii::$app->user->identity->username ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="<?php echo Url::base();?>/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="<?php echo Url::base();?>/dist/img/avatar.jpeg" class="img-circle" alt="User Image">
 
-                <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
-                </p>
+                <h3 class="text-capitalize">
+                  <?php echo Yii::$app->user->identity->username ?>
+                </h3>
               </li>
               <!-- Menu Body -->
-              <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
-                  </div>
-                </div>
-                <!-- /.row -->
-              </li>
+              
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
-                <div class="pull-right">
+                
                   <a href="<?php echo Url::base();?>/site/logout" class="btn btn-default btn-flat" data-method='post'>Sign out</a>
-                </div>
+                
               </li>
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
-          <li>
+          <!-- <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </nav>
@@ -101,30 +84,20 @@ DashboardAsset::register($this);
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="<?php echo Url::base();?>/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="<?php echo Url::base();?>/dist/img/avatar.jpeg" class="img-circle" alt="User Image">
         </div>
-        <div class="pull-left info">
-          <p>Alexander Pierce</p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        <div class="info">
+          <h3 class="text-capitalize"><?php echo Yii::$app->user->identity->username ?></h3>
+          <!-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> -->
         </div>
       </div>
-      <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-      <!-- /.search form -->
+      
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
         
         <!-- Home -->
-        <li class="active treeview">
+        <li class="treeview <?= Yii::$app->controller->id == 'site'?'active':''?>">
           <a href="<?php echo Url::base();?>/site/index">
             <i class="fa fa-dashboard"></i> <span>Home</span>
             <span class="pull-right-container">
@@ -135,9 +108,9 @@ DashboardAsset::register($this);
         <!-- /HOME -->
 
         <!-- Company -->
-        <li class="treeview">
+        <li class="treeview <?= Yii::$app->controller->id == 'company'?'active':''?>">
           <a href="<?php echo Url::base();?>/company">
-            <i class="fa fa-dashboard"></i> <span>Company</span>
+            <i class="fa fa-industry"></i> <span>Company</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -146,9 +119,9 @@ DashboardAsset::register($this);
         <!-- /Company -->
 
         <!-- Branches -->
-        <li class="treeview">
+        <li class="treeview <?= Yii::$app->controller->id == 'branches'?'active':''?>">
           <a href="<?php echo Url::base();?>/branches">
-            <i class="fa fa-dashboard"></i> <span>Branches</span>
+            <i class="fa fa-building-o"></i> <span>Branches</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -157,9 +130,9 @@ DashboardAsset::register($this);
         <!-- /Branches -->
 
         <!-- Department -->
-        <li class="treeview">
+        <li class="treeview <?= Yii::$app->controller->id == 'department'?'active':''?>">
           <a href="<?php echo Url::base();?>/department">
-            <i class="fa fa-dashboard"></i> <span>Department</span>
+            <i class="fa fa-university"></i> <span>Department</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -168,9 +141,9 @@ DashboardAsset::register($this);
         <!-- /Department -->
 
         <!-- Customer -->
-        <li class="treeview">
+        <li class="treeview <?= Yii::$app->controller->id == 'customer'?'active':''?>">
           <a href="<?php echo Url::base();?>/customer">
-            <i class="fa fa-dashboard"></i> <span>Customer</span>
+            <i class="fa fa-user"></i> <span>Customer</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -179,9 +152,9 @@ DashboardAsset::register($this);
         <!-- /Customer -->
 
         <!-- Location -->
-        <li class="treeview">
+        <li class="treeview <?= Yii::$app->controller->id == 'location'?'active':''?>">
           <a href="<?php echo Url::base();?>/location">
-            <i class="fa fa-dashboard"></i> <span>Location</span>
+            <i class="fa fa-street-view"></i> <span>Location</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -198,8 +171,7 @@ DashboardAsset::register($this);
         <!-- Content Header (Page header) -->
         <section class="content-header">
         <h1>
-            Dashboard
-            <small>Control panel</small>
+          <?php if(Yii::$app->controller->id == 'site'){ ?> Dashboard <?php }else { echo "";  } ?>
         </h1>
         <ol class="breadcrumb">
         <?= Breadcrumbs::widget([

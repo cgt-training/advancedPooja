@@ -18,7 +18,7 @@ use dosamigos\datepicker\DatePicker;
       <?php       
         if(!empty($model->getAttribute('company_logo')))
         {
-            $logo  = Html::img('../../backend/web/'.$model->getAttribute('company_logo'),['class'=>'img-responsive center-block']);
+            $logo  = Html::img('@web/'.$model->getAttribute('company_logo'),['class'=>'img-responsive center-block']);
             echo Html::tag('div', $logo, ['class' => 'file-preview-frame col-md-3']);
             // echo Html::a('Remove',Url::to('remove-logo?id='.$model->company_id),['class' => 'btn btn-danger',]);
         }
