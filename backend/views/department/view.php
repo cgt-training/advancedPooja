@@ -10,32 +10,71 @@ $this->title = $model->dept_id;
 $this->params['breadcrumbs'][] = ['label' => 'Departments', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="department-view">
+<div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <center><h1>Branch Details</h1></center>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="example2" class="table table-bordered table-hover">
+                <thead style="font-size:large">
+                    <tr>
+                        <th>Attributes</th>
+                        <th>Values</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr style="font-size:large">
+                            <td>Department Id</td>
+                            <td><?= Html::encode("$model->dept_id") ?></td>
+                        </tr>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+                        <tr style="font-size:large">
+                            <td>Branch Name</td>
+                            <td><?= Html::encode("$branchName->br_name") ?></td>
+                        </tr>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->dept_id], ['class' => 'btn btn-primary update-request']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->dept_id], [
-            'class' => 'btn btn-danger delete-request',
-            // 'data' => [
-            //     'confirm' => 'Are you sure you want to delete this item?',
-            //     'method' => 'post',
-            // ],
-        ]) ?>
-        <?= Html::a('Back', ['index'], ['class' =>'btn btn-default back_to_index']) ?>
-    </p>
+                        <tr style="font-size:large">
+                            <td>Department Name</td>
+                            <td><?= Html::encode("$model->dept_name") ?></td>
+                        </tr>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'dept_id',
-            'branch_id',
-            'dept_name',
-            'company_id',
-            'dept_created_date',
-            'dept_status',
-        ],
-    ]) ?>
+                        <tr style="font-size:large">
+                            <td>Company Name</td>
+                            <td><?= Html::encode("$cName->company_name") ?></td>
+                        </tr>
 
-</div>
+                        <tr style="font-size:large">
+                            <td>Created Date</td>
+                            <td><?= Html::encode("$model->dept_created_date") ?></td>
+                        </tr>
+
+                        <tr style="font-size:large">
+                            <td>Status</td>
+                            <td><?= Html::encode("$model->dept_status") ?></td>
+                        </tr>
+
+              </table>
+              <div style="margin:1%">
+              <center>
+                <?= Html::a('Update', ['update', 'id' => $model->dept_id], ['class' => 'btn btn-primary update-request']) ?>
+                    <?= Html::a('Delete', ['delete', 'id' => $model->dept_id], [
+                        'class' => 'btn btn-danger delete-request',
+                        // 'data' => [
+                        //     'confirm' => 'Are you sure you want to delete this item?',
+                        //     'method' => 'post',
+                        // ],
+                    ]) ?>
+                    <?= Html::a('Back', ['index'], ['class' =>'btn btn-default back_to_index']) ?>
+                </center>
+            </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+        </div>
+        <!-- /.col -->
+      </div>

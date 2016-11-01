@@ -18,15 +18,15 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Company View</h3>
+              <center><h1>List Of Companies</h1></center>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example2" class="table table-bordered table-hover">
-                <thead>
+                <thead style="font-size:large">
                 	<tr>
                   		<th>Company Name</th>
-            			<th>Company Logo</th>
+            			    <th>Company Logo</th>
                 	</tr>
                 </thead>
                 <tbody>

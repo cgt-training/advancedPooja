@@ -161,6 +161,32 @@ DashboardAsset::register($this);
           </a>
         </li>
         <!-- /Location -->
+
+        <!-- User -->
+        <li class="treeview <?= Yii::$app->controller->id == 'location'?'active':''?>">
+          <a href="<?php echo Url::base();?>/user">
+            <i class="fa fa-users"></i> <span>User</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+        </li>
+        <!-- /User -->
+        
+        <!--  -->
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-lock "></i>
+            <span>Create Assignments</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="<?php echo Url::base();?>/role/create"><i class="fa fa-circle-o"></i>Add Role</a></li>
+            <li><a href="<?php echo Url::base();?>/user"><i class="fa fa-circle-o"></i>Add Permission</a></li>
+          </ul>
+        </li>
     </section>
     <!-- /.sidebar -->
   </aside>

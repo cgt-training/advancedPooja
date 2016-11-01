@@ -81,13 +81,20 @@ class DepartmentController extends Controller
 
     public function actionView($id)
     {
+        $branchName = $this->findModel($id)->branch;
+        $cName = $this->findModel($id)->company;
+        
         if(Yii::$app->request->isAjax){
             return $this->renderAjax('view', [
                 'model' => $this->findModel($id),
+                'branchName' => $branchName,
+                'cName' => $cName,
             ]);
         } else {
             return $this->render('view', [
                 'model' => $this->findModel($id),
+                'branchName' => $branchName,
+                'cName' => $cName,
             ]);
         }
     }

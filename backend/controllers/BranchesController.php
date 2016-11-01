@@ -81,13 +81,16 @@ class BranchesController extends Controller
 // this will view the details of selected id -- findmodel($id) function created at the bottom of this page which calls the model and access the db
     public function actionView($id)
     {
+        $company = $this->findModel($id)->company;
         if(Yii::$app->request->isAjax){
             return $this->renderAjax('view', [
                 'model' => $this->findModel($id),
+                'company' => $company,
             ]);
         } else {
             return $this->render('view', [
                 'model' => $this->findModel($id),
+                'company' => $company,
             ]);
         }
     }

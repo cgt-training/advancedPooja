@@ -186,4 +186,38 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
+    public function updaterole($model,$user)
+    {
+        if (!$this->validate()) {
+            return null;
+        }
+        $model->role = $user['role'];
+        $model->firstname = $user['firstname'];
+        $model->lastname = $user['lastname'];
+        $model->username = $user['username'];
+
+        // the following three lines were added:
+        $auth = Yii::$app->authManager;
+        $authorRole = $auth->getRole($user['role']);
+        $assignmentTable = $auth->assignmentTable;
+        $list= Yii::$app->db->createCommand("select * from $assignmentTable where user_id=:user_id")->bindValue("user_id",$model->getId())->queryAll();
+        if($list==""){
+            $auth->assign($authorRole, $model->getId());
+        } else {
+            $auth->revoke($authorRole,$model->getId());
+        }
+        return $model;
+
+    }
+
+    public function createrole(){
+        $auth = Yii::$app->authManager;
+        $itemTable = $auth->itemTable;
+        Yii::$app->db->createCommand()->insert($itemTable, [
+                'name' => 'samdgdg',
+                'type' => '1',
+                'description' => 'vcfds',
+            ])->execute();
+    }
 }
