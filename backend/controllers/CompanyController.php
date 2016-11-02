@@ -199,7 +199,7 @@ class CompanyController extends Controller
     {
         $model = $this->findModel($id);
 
-        if (Yii::$app->user->can('updateCompany')) {
+        // if (Yii::$app->user->can('updateCompany')) {
             if ($model->load(Yii::$app->request->post())) {
                 $imageName= $model->company_name;
 
@@ -228,9 +228,9 @@ class CompanyController extends Controller
                 }
                 
             }
-        } else {
-            return $this->redirect(['index']);
-        }
+        // } else {
+        //     return $this->redirect(['index']);
+        // }
     }
 
     /**
@@ -241,7 +241,7 @@ class CompanyController extends Controller
      */
     public function actionDelete($id)
     {
-        if (Yii::$app->user->can('deleteCompany')) {
+        // if (Yii::$app->user->can('deleteCompany')) {
             if(Yii::$app->request->isAjax)
             {
                 Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
@@ -250,10 +250,10 @@ class CompanyController extends Controller
                 // $this->findModel($id)->delete();
                 // return $this->redirect(['index']);
             }
-        }
-        else{
-            return $this->redirect(['index']);
-        }
+        // }
+        // else{
+        //     return $this->redirect(['index']);
+        // }
     }
 
     /**

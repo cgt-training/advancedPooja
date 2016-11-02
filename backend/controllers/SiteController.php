@@ -90,7 +90,15 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->redirect(['index']);
+            $role = Yii::$app->user->identity->role;
+            if($role == 'admin'){
+                return $this->redirect(['index']);
+            }
+            else{
+                Yii::$app->user->logout();
+                return $this->goHome();
+            }
+
         } else {
             return $this->render('login', [
                 'model' => $model,

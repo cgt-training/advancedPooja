@@ -22,7 +22,7 @@ use kartik\select2\Select2;
                 <div>
                     <label for="customer-name" class="col-sm-2 control-label">Customer Name</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-9">
                         <?= $form->field($model, 'cust_name')->textInput(['maxlength' => true])->label(false);
                         ?>
                     </div>
@@ -31,7 +31,7 @@ use kartik\select2\Select2;
                 <div>
                     <label for="zip-code" class="col-sm-2 control-label">Zip Code</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-9">
                         <?= $form->field($model, 'zip_code')->widget(Select2::classname(), [
                                 'data' => $listData,
                                 'options' => [
@@ -50,7 +50,7 @@ use kartik\select2\Select2;
                 <div>
                     <label for="city" class="col-sm-2 control-label">City</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-9">
                         <?= $form->field($model, 'city')->textInput(['maxlength' => true, 'id' => 'city'])->label(false) ?>
                     </div>
                 </div>
@@ -58,7 +58,7 @@ use kartik\select2\Select2;
                 <div>
                     <label for="province" class="col-sm-2 control-label">Province</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-9">
                         <?= $form->field($model, 'province')->textInput(['maxlength' => true, 'id' => 'province'])->label(false)
                         ?>
                     </div>

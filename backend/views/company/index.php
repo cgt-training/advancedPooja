@@ -62,14 +62,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
             
                  ['class' => 'yii\grid\ActionColumn',
-                    'visibleButtons' => [
-                        'update'=> function () {
-                            return Yii::$app->user->can('updateCompany')?true:false;
-                        },
-                        'delete' => function () {
-                            return Yii::$app->user->can('deleteCompany')?true:false;
-                        },
-                    ],
+                    // 'visibleButtons' => [
+                    //     'update'=> function () {
+                    //         return Yii::$app->user->can('updateCompany')?true:false;
+                    //     },
+                    //     'delete' => function () {
+                    //         return Yii::$app->user->can('deleteCompany')?true:false;
+                    //     },
+                    // ],
                     'buttons' => [
                         'delete' => function ($url, $model) {
                             return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url,['class'=>"delete-request"]);

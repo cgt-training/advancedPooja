@@ -14,11 +14,9 @@ $('body').on('beforeSubmit', 'form#create-form', function() {
 
                   // console.log(response);
                 if (response == '1') {
-                    
                     $('#create-modal').modal('hide');
-
                     $.pjax.reload({ container: '#formPjax'});
-
+                    $('#completed-message').show();
                 }
                 else{
                     $form.trigger("reset");

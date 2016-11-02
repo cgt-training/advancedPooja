@@ -14,6 +14,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="customer-index">
 
+    <div class="alert alert-info alert-dismissible" style="margin-top:5%;display: none" id="completed-message">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h4>Customer Created Successfully</h4>        
+    </div>
+
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 

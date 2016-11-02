@@ -24,7 +24,7 @@ use kartik\select2\Select2;
                 <div>
                     <label for="branch-name" class="col-sm-2 control-label">Branch Name</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-9">
                         <?= $form->field($model, 'branch_id')->widget(Select2::classname(), [
                             'data' => $branchList,
                             'language' => 'de',
@@ -39,7 +39,7 @@ use kartik\select2\Select2;
                 <div>
                     <label for="dept-name" class="col-sm-2 control-label">Department Name</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-9">
                         <?= $form->field($model, 'dept_name')->textInput(['maxlength' => true])->label(false) ?>
                     </div>
                 </div>
@@ -47,7 +47,7 @@ use kartik\select2\Select2;
                 <div>
                     <label for="company-name" class="col-sm-2 control-label">Company Name</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-9">
                         <?= $form->field($model, 'company_id')->widget(Select2::classname(), [
                             'data' => $companyList,
                             'language' => 'de',
@@ -62,7 +62,7 @@ use kartik\select2\Select2;
                 <div>
                     <label for="dept-date" class="col-sm-2 control-label">Created Date</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-9">
                         <?= $form->field($model, 'dept_created_date')->widget(DatePicker::classname(), [
                              'clientOptions' => [
                                  'autoclose' => true,
@@ -76,7 +76,7 @@ use kartik\select2\Select2;
                 <div>
                     <label for="dept-status" class="col-sm-2 control-label">Department Status</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-9">
                         <?= $form->field($model, 'dept_status')->dropDownList([ 'active' => 'Active', 'inactive' => 'Inactive', ], ['prompt' => ''])->label(false) ?>
                     </div>
                 </div>

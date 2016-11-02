@@ -10,17 +10,21 @@ use yii\widgets\LinkPager;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\CompanySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-$this->title = 'Companies List';
-$this->params['breadcrumbs'][] = ['label' => 'Companies', 'url' => ['index']];
+$this->title = 'Roles';
+$this->params['breadcrumbs'][] = ['label' => 'Role', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="row">
+
+<div class="row" style="margin-top:5%">
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
+            <p class="pull-right">
+              <?= Html::a('Add Role', ['create'], ['class' => 'btn btn-success btn-lg']) ?> 
+              <?= Html::a('Add Permission', ['permission'], ['class' => 'btn btn-primary btn-lg']) ?>
+            </p>
               <center>
-                <a class="btn btn-default btn-lg pull-left back_to_index" href="<?= Url::toRoute('/company')?>">Back</a>
-                <h1>List Of Companies</h1>
+                <h1>Roles</h1>
               </center>
             </div>
             <!-- /.box-header -->
@@ -28,16 +32,17 @@ $this->params['breadcrumbs'][] = $this->title;
               <table id="example2" class="table table-bordered table-hover">
                 <thead style="font-size:large">
                 	<tr>
-                  		<th>Company Name</th>
-            			    <th>Company Logo</th>
+                  		<th>Name</th>
+            			    <th>Description</th>
+                      <th></th>
                 	</tr>
                 </thead>
                 <tbody>
-                	<?php foreach ($companyList as $company): ?>
+                	<?php foreach ($authitemdata as $data): ?>
 			            <tr style="font-size:large">
-			                <td><?= Html::encode("$company->company_name") ?></td>
-			                <td><?=Html::img("@web/$company->company_logo",
-			                            ['min-width' => '40%']); ?></td>
+			                <td><?= Html::encode("$data->name") ?></td>
+			                <td><?= Html::encode("$data->description") ?></td>
+                      <td><a data-method="post" class="" href="<?php echo Url::base()?>/role/delete?name=<?php echo $data->name ?>"><i class="fa fa-trash"></i></a></td>
 			            </tr>
 			        <?php endforeach; ?>
                 </tbody>

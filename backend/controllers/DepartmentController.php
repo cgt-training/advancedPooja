@@ -110,11 +110,11 @@ class DepartmentController extends Controller
         $companyList = Company::find()->all();
         $branchList = Branches::find()->all();
 
-        if (Yii::$app->user->can('createDepartment')) {
+        // if (Yii::$app->user->can('createDepartment')) {
             if ($model->load(Yii::$app->request->post())) {
 
                 if($model->save())
-                {
+                {   
                     echo "1";
                 }
                 else
@@ -130,9 +130,9 @@ class DepartmentController extends Controller
                     'branchList' => $branchList,
                 ]);
             }
-        } else {
-            return $this->redirect(['index']);
-        }
+        // } else {
+        //     return $this->redirect(['index']);
+        // }
     }
 
     /**
@@ -147,7 +147,7 @@ class DepartmentController extends Controller
         $companyList = Company::find()->all();
         $branchList = Branches::find()->all();
 
-        if (Yii::$app->user->can('updateDepartment')) {
+        // if (Yii::$app->user->can('updateDepartment')) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->dept_id]);
             } else {
@@ -165,9 +165,9 @@ class DepartmentController extends Controller
                     ]);
                 }
             }
-        } else {
-            return $this->redirect(['index']);
-        }
+        // } else {
+        //     return $this->redirect(['index']);
+        // }
     }
 
     /**
@@ -178,13 +178,13 @@ class DepartmentController extends Controller
      */
     public function actionDelete($id)
     {
-        if (Yii::$app->user->can('deleteDepartment')) {
+        // if (Yii::$app->user->can('deleteDepartment')) {
             $this->findModel($id)->delete();
 
             return $this->redirect(['index']);
-        } else {
-            return $this->redirect(['index']);
-        }
+        // } else {
+        //     return $this->redirect(['index']);
+        // }
     }
 
     /**

@@ -105,7 +105,7 @@ class BranchesController extends Controller
 
         $model = new Branches();
         $companyList = Company::find()->all();
-        if (Yii::$app->user->can('createBranch')) {
+        // if (Yii::$app->user->can('createBranch')) {
             if ($model->load(Yii::$app->request->post())) {
 
                 if($model->save())
@@ -126,10 +126,10 @@ class BranchesController extends Controller
                     'companyList' => $companyList,
                 ]);
             }
-        }
-        else{
-            return $this->redirect(['index']);
-        }
+        // }
+        // else{
+        //     return $this->redirect(['index']);
+        // }
     }
 
     /**
@@ -143,7 +143,7 @@ class BranchesController extends Controller
         $model = $this->findModel($id);
         $companyList = Company::find()->all();
 
-        if (Yii::$app->user->can('updateBranch')) {
+        // if (Yii::$app->user->can('updateBranch')) {
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->br_id]);
             } else {
@@ -159,9 +159,9 @@ class BranchesController extends Controller
                     ]);
                 }
             }
-        } else {
-            return $this->redirect(['index']);
-        }
+        // } else {
+        //     return $this->redirect(['index']);
+        // }
     }
 
     /**
@@ -172,13 +172,13 @@ class BranchesController extends Controller
      */
     public function actionDelete($id)
     {
-        if (Yii::$app->user->can('deleteBranch')) {
+        // if (Yii::$app->user->can('deleteBranch')) {
             $this->findModel($id)->delete();
 
             return $this->redirect(['index']);
-        } else {
-            return $this->redirect(['index']);
-        }
+        // } else {
+        //     return $this->redirect(['index']);
+        // }
     }
 
     public function actionBack()

@@ -72,5 +72,23 @@ class AuthItem extends \yii\db\ActiveRecord
         return $model;
     }
 
+    public function createpermission($authitem){
+        $model = Yii::$app->db->createCommand()->insert('auth_item', [
+                'name' => $authitem['name'],
+                'description' => $authitem['description'],
+                'type' => '2',
+              ]);
+        return $model;
+    }
+
+    public function assignpermission($authitem,$authitemchild){
+        for($i=0; $i<count($authitemchild); $i++){
+            $model1 = Yii::$app->db->createCommand()->insert('auth_item_child', [
+                'parent' => $authitem['name'],
+                'child' => $authitemchild[$i]['child'],
+              ])->execute();
+        }
+    }
+
      
 }

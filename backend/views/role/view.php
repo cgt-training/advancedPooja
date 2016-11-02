@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
               </table>
               <div style="margin:1%">
               <center>
-                    <?= Html::a('Back', ['create'], ['class' =>'btn btn-default btn-lg']) ?>
+                    <?= Html::a('Back', ['index'], ['class' =>'btn btn-default btn-lg']) ?>
                 </center>
             </div>
             </div>

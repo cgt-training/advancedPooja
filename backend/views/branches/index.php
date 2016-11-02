@@ -14,6 +14,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="branches-index">
 
+    <div class="alert alert-info alert-dismissible" style="margin-top:5%;display: none" id="completed-message">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h4>Branch Created Successfully</h4>        
+    </div>
+
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -54,14 +59,14 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'br_status',
 
             ['class' => 'yii\grid\ActionColumn', 
-                'visibleButtons' => [
-                    'update'=> function () {
-                            return Yii::$app->user->can('updateCompany')?true:false;
-                    },
-                    'delete' => function () {
-                            return Yii::$app->user->can('deleteCompany')?true:false;
-                    },
-                ],
+                // 'visibleButtons' => [
+                //     'update'=> function () {
+                //             return Yii::$app->user->can('updateCompany')?true:false;
+                //     },
+                //     'delete' => function () {
+                //             return Yii::$app->user->can('deleteCompany')?true:false;
+                //     },
+                // ],
                 'buttons' => [
                     'delete' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url,['class'=>"delete-request"]);

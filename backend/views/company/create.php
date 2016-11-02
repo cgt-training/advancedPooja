@@ -105,13 +105,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             <?php endforeach; ?>
             </div>
-            <?php DynamicFormWidget::end(); ?>
         </div>
     </div>
     </div>
-    
-    <?php ActiveForm::end(); ?>
-
+    <?php DynamicFormWidget::end(); ?>
 </div>
     <div class="box-footer">
         <center>
@@ -119,6 +116,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a('Back', ['index'], ['class' =>'btn btn-default btn-lg back_to_index']) ?>
         </center>
     </div>
+    <?php ActiveForm::end(); ?>
 </div>
 <!-- </div> -->
 <!-- </div> -->

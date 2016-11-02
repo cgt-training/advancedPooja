@@ -23,7 +23,7 @@ use kartik\select2\Select2;
                 <div>
                     <label for="company-name" class="col-sm-2 control-label">Company Name</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-9">
                         <?= $form->field($model, 'company_id')->widget(Select2::classname(), [
                                 'data' => $listData,
                                 'language' => 'de',
@@ -38,7 +38,7 @@ use kartik\select2\Select2;
                 <div>
                     <label for="branch-name" class="col-sm-2 control-label">Branch Name</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-9">
                         <?= $form->field($model, 'br_name')->textInput(['maxlength' => true, 'class' => 'form-control', 'id' => 'branch_name'])->label(false) ?>
                     </div>
                 </div>
@@ -46,7 +46,7 @@ use kartik\select2\Select2;
                 <div>
                     <label for="branch-address" class="col-sm-2 control-label">Branch Address</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-9">
                         <?= $form->field($model, 'br_address')->textInput(['maxlength' => true, 'id' => 'branch-address'])->label(false) ?>
                     </div>
                 </div>
@@ -54,7 +54,7 @@ use kartik\select2\Select2;
                 <div>
                     <label for="created-date" class="col-sm-2 control-label">Created Date</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-9">
                         <?= $form->field($model, 'br_created_date')->widget(DatePicker::classname(), [
                                 'clientOptions' => [
                                     'autoclose' => true,
@@ -71,7 +71,7 @@ use kartik\select2\Select2;
                 <div>
                     <label for="branch-status" class="col-sm-2 control-label">Branch Status</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-9">
                         <?= $form->field($model, 'br_status')->dropDownList([ 
                                 'active' => 'Active', 
                                 'inactive' => 'Inactive', ], 

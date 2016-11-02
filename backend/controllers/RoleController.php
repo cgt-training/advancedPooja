@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use frontend\models\Model;
+use yii\data\Pagination;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -31,25 +32,72 @@ class RoleController extends Controller
     }
 
     /**
+     * Lists all Company models.
+     * @return mixed
+     */
+
+// This function will redirect to tha index view
+
+    public function actionIndex()
+    {
+        $model = new AuthItem();
+        $query = $model->find();
+
+        $pagination = new Pagination([
+            'defaultPageSize' => 10,
+            'totalCount' => $query->count(),
+        ]);
+
+        // limit the query using the pagination and retrieve the result from db
+        $authitemdata = $query->orderBy('name')
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
+        
+        if(Yii::$app->request->isAjax){ 
+            return $this->renderAjax('index', [
+                'authitemdata' => $authitemdata,
+                'pagination' => $pagination,
+            ]);
+        } else {
+            return $this->render('index', [
+                'authitemdata' => $authitemdata,
+                'pagination' => $pagination,
+            ]);
+        }
+    }
+
+    /**
      * Create a new role
      */
     public function actionCreate()
     {
         $model = new AuthItem();
-        $namelist = $model->find()->all();
         $itemchild = [new AuthItemChild];
+        $namelist = Yii::$app->db->createCommand("select * from auth_item where type='2'")->queryAll();
 
-        if ($model->load(Yii::$app->request->post())) 
-        {
-            $modelsBranch = Model::createMultiple(AuthItemChild::classname());
-                Model::loadMultiple($itemchild, Yii::$app->request->post());
-            $authitem = Yii::$app->request->post();
-            print_r($auth_item);
-            exit;
-            if ($role = $model->createrole($authitem)) {
-                if($role->execute()){
-                    return $this->redirect(['view', 'name' => $model->name]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            $itemchild = Model::createMultiple(AuthItemChild::classname());
+            $itemchild = Model::loadMultiple($itemchild, Yii::$app->request->post('AuthItemChild'));
+            $authitem = Yii::$app->request->post('AuthItem');
+            $authitemchild = Yii::$app->request->post('AuthItemChild');
+            $role = $model->createrole($authitem);
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                if ($flag = $role->execute(false)) 
+                {
+                    $model->assignpermission($authitem,$authitemchild);
                 }
+                if ($flag) {
+                    $transaction->commit();
+                    return $this->redirect(['view', 'name' => $model->name]);
+                } else {
+                    $transaction->rollBack();
+                }
+            } catch (Exception $e) {
+                $transaction->rollBack();
             }
         } else {
             if(Yii::$app->request->isAjax){
@@ -58,7 +106,9 @@ class RoleController extends Controller
                     'itemchild' => $itemchild,
                     'namelist' => $namelist,
                 ]);
-            } else {
+            }
+            else
+            {
                 return $this->render('create', [
                     'model' => $model,
                     'itemchild' => $itemchild,
@@ -68,6 +118,7 @@ class RoleController extends Controller
         }
     }
 
+    
     /**
      * Displays a single User model.
      * @param integer $id
@@ -87,6 +138,18 @@ class RoleController extends Controller
     }
 
     /**
+     * Deletes an existing Company model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionDelete($name)
+    {
+        $this->findModel($name)->delete();
+        return $this->redirect(['index']);
+    }
+
+    /**
      * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
@@ -99,6 +162,31 @@ class RoleController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    // function to create permission
+    public function actionPermission()
+    {
+        $model = new AuthItem;
+
+        if ($model->load(Yii::$app->request->post())) {
+            $authitem = Yii::$app->request->post('AuthItem');
+            if ($permission = $model->createpermission($authitem)) {
+
+                $permission->execute();
+                return $this->redirect(['view', 'name' => $model->name]);
+            }
+        } else {
+            if(Yii::$app->request->isAjax){
+                return $this->renderAjax('permission', [
+                    'model' => $model,
+                ]);
+            } else {
+                return $this->render('permission', [
+                    'model' => $model,
+                ]);
+            }
         }
     }
 }

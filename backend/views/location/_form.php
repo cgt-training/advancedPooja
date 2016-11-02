@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
                 <div>
                     <label for="zip-code" class="col-sm-2 control-label">Zip Code</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-9">
                         <?= $form->field($model, 'zip_code')->textInput(['maxlength' => true])->label(false) ?>
                     </div>
                 </div>
@@ -27,7 +27,7 @@ use yii\widgets\ActiveForm;
                 <div>
                     <label for="city" class="col-sm-2 control-label">City</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-9">
                         <?= $form->field($model, 'city')->textInput(['maxlength' => true])->label(false) ?>
                     </div>
                 </div>
@@ -35,7 +35,7 @@ use yii\widgets\ActiveForm;
                 <div>
                     <label for="province" class="col-sm-2 control-label">Province</label>
 
-                    <div class="col-sm-10">
+                    <div class="col-sm-9">
                         <?= $form->field($model, 'province')->textInput(['maxlength' => true])->label(false) ?>
                     </div>
                 </div>

@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Role', 'url' => ['create']];
         <div class="col-sm-6 col-xs-12 col-md-6">
                 <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
                 <?= $form->field($model, 'description')->textArea(['maxlength' => true])?>
-            </div>
+        </div>
     <?php  DynamicFormWidget::begin([
         'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
         'widgetBody' => '.container-items', // required: css class selector
@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Role', 'url' => ['create']];
                         <!-- <?= $form->field($item, "[{$i}]parent")->textInput(["maxlength" => true]) ?> -->
                         <div class="row">
                             <div class="col-sm-6">
-                            <?= $form->field($item, "[{$i}]child")->dropDownList([ $listData]) ?>
+                            <?= $form->field($item, "[{$i}]child")->dropDownList($listData, ["prompt" => "Select Permission"]) ?>
                             </div>
                             
                         </div><!-- .row -->
@@ -78,13 +78,11 @@ $this->params['breadcrumbs'][] = ['label' => 'Role', 'url' => ['create']];
         </div>
     </div>
     </div>
-    
-    <?php ActiveForm::end(); ?>
-
 </div>
     <div class="box-footer">
         <center>
             <?= Html::submitButton('Create' , ['class' =>  'btn btn-success btn-lg' ]) ?>
         </center>
     </div>
+    <?php ActiveForm::end(); ?>
 </div>

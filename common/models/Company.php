@@ -40,6 +40,7 @@ class Company extends \yii\db\ActiveRecord
         return [
             [['company_name', 'company_email', 'c_createDate', 'company_status', 'c_address'], 'required'],
             [['c_createDate'], 'safe'],
+            [['company_email'], 'email'],
             [['company_status'], 'string'],
             [['company_name', 'company_email', 'company_logo'], 'string', 'max' => 100],
             [['c_address'], 'string', 'max' => 255],

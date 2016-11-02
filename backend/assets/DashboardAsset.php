@@ -25,6 +25,7 @@ class DashboardAsset extends AssetBundle
         'css/bootstrap3-wysihtml5.min.css',
         'css/site.css',
         'css/fullcalendar.min.css',
+        'css/bootstrap.min.css.map'
         // 'css/fullcalendar.print.css',
     ];
     public $js = [
@@ -32,7 +33,7 @@ class DashboardAsset extends AssetBundle
         'https://code.jquery.com/ui/1.11.4/jquery-ui.min.js',
         'https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js',
         'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js',
-        'js/morris.min.js',
+        // 'js/morris.min.js',
         'js/jquery.sparkline.min.js',
         'js/jquery-jvectormap-1.2.2.min.js',
         'js/jquery-jvectormap-world-mill-en.js',
@@ -43,7 +44,7 @@ class DashboardAsset extends AssetBundle
         'js/jquery.slimscroll.min.js',
         'js/fastclick.js',
         'js/app.min.js',
-        'js/dashboard.js',
+        // 'js/dashboard.js',
         'js/demo.js',
         'js/fullcalendar.min.js',
         'js/bootbox.min.js',
