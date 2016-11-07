@@ -5,63 +5,80 @@ use yii\grid\GridView;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
+use yii\widgets\LinkPager;
 
 /* @var $this yii\web\View */
-/* @var $searchModel frontend\models\LocationSearch */
+/* @var $searchModel frontend\models\CompanySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = 'Locations';
+$this->title = 'Location';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="location-index">
+<div class="alert alert-info alert-dismissible" style="margin-top:5%;display: none" id="completed-message">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4>Location Created Successfully</h4>        
+            </div>
+<div class="row" style="margin-top:5%" id="index-content">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <center>
+                <?= Html::button('Create Location', [
+                    'value'=> Url::toRoute('location/create'), 
+                    'class' => 'btn btn-success btn-lg pull-right', 
+                    'id'=>'create-request' ]) 
+                ?>
+                <h1 style="color:#3C8DBC">Location</h1>
+              </center>
+              <?php
+                    Modal::begin([
+                        'header'=>'<h2>Location</h2>',
+                        'id'=>'create-modal',
+                        'size'=>'modal-lg',
+                        'options' => [
+                            'tabindex' => false // important for Select2 to work properly
+                        ],
+                    ]);
+                    echo "<div id='modalContent'></div>";
+                    Modal::end();
+                ?>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="table-index" class="table table-responsive table-bordered table-hover">
+                <thead style="font-size:large">
+                    <tr style="color:#3C8DBC">
+                        <th>Zip Code</th>
+                        <th>City</th>
+                        <th>Province</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($locationList as $location): ?>
+                        <tr style="font-size:large">
+                            <td><?= Html::encode("$location->zip_code") ?></td>
+                            <td><?= Html::encode("$location->city") ?></td>
+                            <td><?= Html::encode("$location->province") ?></td>
+                            <td>
+                                <a class="view-request" href="<?= Url::toRoute('/location/view?id='.$location->loc_id)?>" title="View"><span class="glyphicon glyphicon-eye-open"></span></a>
 
-    <div class="alert alert-info alert-dismissible" style="margin-top:5%;display: none" id="completed-message">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <h4>Customer Created Successfully</h4>        
-    </div>
+                                <a class="update-request" title='Update' href="<?= Url::toRoute('/location/update?id='.$location->loc_id)?>"><span class="glyphicon glyphicon-pencil"></span></a>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+                                <a class="delete-request" href="<?= Url::toRoute('/location/delete?id='.$location->loc_id)?>"><span class="glyphicon glyphicon-trash"></span></a>
+                            </td>
 
-    <p>
-        <!-- <?= Html::a('Create Location', ['create'], ['class' => 'btn btn-success']) ?> -->
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+              </table>
+              <div class="pull-right">
+                <?= LinkPager::widget(['pagination' => $pagination]) ?>
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
 
-        <?= Html::button('Create Location', [
-            'value'=> Url::toRoute('location/create'), 
-            'class' => 'btn btn-success', 
-            'id'=>'create-request' ]) 
-        ?>
-
-    </p>
-
-    <?php
-            Modal::begin([
-
-                'header'=>'<h2>Branches</h2>',
-                'id'=>'create-modal',
-                'size'=>'modal-lg',
-            ]);
-            echo "<div id='modalContent'></div>";
-            Modal::end();
-    ?>
-
-<?php Pjax::begin(['id' => 'formPjax']); ?>    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-
-            'loc_id',
-            'zip_code',
-            'city',
-            'province',
-
-            ['class' => 'yii\grid\ActionColumn', 
-                'buttons' => [
-                    'delete' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url,['class'=>"delete-request"]);
-                    },
-                ],
-            ],
-        ],
-    ]); ?>
-<?php Pjax::end(); ?></div>
+        </div>
+        <!-- /.col -->
+      </div>

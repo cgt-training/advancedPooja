@@ -13,6 +13,7 @@ use common\models\Department;
 use common\models\Company;
 use common\models\Branches;
 use common\models\DepartmentSearch;
+use yii\data\Pagination;
 
 
 /**
@@ -59,15 +60,39 @@ class DepartmentController extends Controller
     {
         $searchModel = new DepartmentSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $query = Department::find();
+        $pagination = new Pagination([
+            'defaultPageSize' => 10,
+            'totalCount' => $query->count(),
+        ]);
+
+        // limit the query using the pagination and retrieve the result from db
+        $deptList = $query->orderBy('dept_name')
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+        
+        for($i=0;$i<count($deptList);$i++)
+        {
+            $id[$i] = $deptList[$i]['dept_id'];
+            $deptList[$i]['company_id'] = $this->findModel($id[$i])->company['company_name'];
+            $deptList[$i]['branch_id'] = $this->findModel($id[$i])->branch['br_name'];
+        }
+
         if(Yii::$app->request->isAjax){
             return $this->renderAjax('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
+                // 'searchModel' => $searchModel,
+                // 'dataProvider' => $dataProvider,
+                'deptList' => $deptList,
+                'pagination' => $pagination,
             ]);
         } else {
             return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
+                // 'searchModel' => $searchModel,
+                // 'dataProvider' => $dataProvider,
+                'deptList' => $deptList,
+                'pagination' => $pagination,
             ]);
         }
     }
@@ -178,13 +203,14 @@ class DepartmentController extends Controller
      */
     public function actionDelete($id)
     {
-        // if (Yii::$app->user->can('deleteDepartment')) {
-            $this->findModel($id)->delete();
+        if(Yii::$app->request->isAjax)
+        {
+            Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
+            return ['status'=>$this->findModel($id)->delete()];
 
-            return $this->redirect(['index']);
-        // } else {
-        //     return $this->redirect(['index']);
-        // }
+            // $this->findModel($id)->delete();
+            // return $this->redirect(['index']);
+        }
     }
 
     /**

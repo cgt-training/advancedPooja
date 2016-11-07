@@ -163,12 +163,12 @@ DashboardAsset::register($this);
         <!-- /Location -->
 
         <!-- User -->
-        <li class="treeview <?= Yii::$app->controller->id == 'location'?'active':''?>">
+        <li class="treeview <?= Yii::$app->controller->id == 'user'?'active':''?>">
           <a href="<?php echo Url::base();?>/user">
             <i class="fa fa-users"></i> <span>User</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
-            </span>
+            </i>
           </a>
         </li>
         <!-- /User -->

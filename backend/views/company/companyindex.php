@@ -5,7 +5,7 @@ use yii\helpers\BaseHtml;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
-use yii\bootstrap\Modal;
+// use yii\bootstrap\Modal;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\CompanySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -19,25 +19,25 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <!-- <?= Html::a('Create Company', ['create'], ['class' => 'btn btn-success']) ?> -->
-        <!-- <?= Html::button('Create Company', [
-            'value'=> Url::toRoute('company/create'), 
+         <?= Html::a('Create Company', ['create'], ['class' => 'btn btn-success']) ?>
+         <!-- <?= Html::button('Create Company', [
+            'value'=> Url::toRoute('/company/create'), 
             'class' => 'btn btn-success', 
             'id'=>'create-request' ]) 
-        ?> -->
+        ?> --> 
+        
 
         <?= Html::a('View Company List', ['company-view'], ['class' => 'btn btn-primary']) ?>
     </p>
-        <?php
-            Modal::begin([
-
-                'header'=>'<h2>Company</h2>',
-                'id'=>'create-modal',
-                'size'=>'modal-lg',
-            ]);
-            echo "<div id='modalContent'></div>";
-            Modal::end();
-        ?>
+        <!-- <?php
+            // Modal::begin([
+            //     'header'=>'<h2>Company</h2>',
+            //     'id'=>'create-modal',
+            //     'size'=>'modal-lg',
+            // ]);
+            // echo "<div id='modalContent'></div>";
+            // Modal::end();
+        ?> -->
     
 <div class="table-responsive">
     <?php Pjax::begin(['id' => 'formPjax']); ?>    
@@ -45,8 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'columns' => [
-                // ['class' => 'yii\grid\SerialColumn'],
-
+            
                 'company_id',
                 'company_name',
                 'company_email:email',
@@ -57,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'company_logo',
                     'format' => 'html',
                     'value' => function ($dataProvider) {
-                        return Html::img('@web/frontend/web/'.$dataProvider['company_logo'],
+                        return Html::img('@web/'.$dataProvider['company_logo'],
                             ['width' => '60px', 'class' => 'img-responsive']);
                     },
                 ],
@@ -65,10 +64,10 @@ $this->params['breadcrumbs'][] = $this->title;
                  ['class' => 'yii\grid\ActionColumn',
                     // 'visibleButtons' => [
                     //     'update'=> function () {
-                    //             return Yii::$app->user->can('updateCompany')?false:false;
+                    //         return Yii::$app->user->can('updateCompany')?true:false;
                     //     },
                     //     'delete' => function () {
-                    //             return Yii::$app->user->can('deleteCompany')?false:false;
+                    //         return Yii::$app->user->can('deleteCompany')?true:false;
                     //     },
                     // ],
                     'buttons' => [

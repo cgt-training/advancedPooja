@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'province',
 
             ['class' => 'yii\grid\ActionColumn',
-                'template' => '{view}',
+                // 'template' => '{view}',
                 'buttons' => [
                     'delete' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url,['class'=>"delete-request"]);

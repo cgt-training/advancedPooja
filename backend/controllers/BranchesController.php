@@ -12,6 +12,7 @@ use yii\filters\AccessControl;
 use common\models\Branches;
 use common\models\Company;
 use common\models\BranchesSearch;
+use yii\data\Pagination;
 
 /**
  * BranchesController implements the CRUD actions for Branches model.
@@ -58,17 +59,37 @@ class BranchesController extends Controller
     {
         $searchModel = new BranchesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        
+        $query = Branches::find();
+        $pagination = new Pagination([
+            'defaultPageSize' => 10,
+            'totalCount' => $query->count(),
+        ]);
 
+        // limit the query using the pagination and retrieve the result from db
+        $branchList = $query->orderBy('br_name')
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+        
+        for($i=0;$i<count($branchList);$i++)
+        {
+            $id[$i] = $branchList[$i]['br_id'];
+            $branchList[$i]['company_id'] = $this->findModel($id[$i])->company['company_name'];
+        } 
+    
         if(Yii::$app->request->isAjax){
             return $this->renderAjax('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
+                // 'searchModel' => $searchModel,
+                // 'dataProvider' => $dataProvider,
+                'branchList' => $branchList,
+                'pagination' => $pagination,
             ]);
         } else {
             return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
+                // 'searchModel' => $searchModel,
+                // 'dataProvider' => $dataProvider,
+                'branchList' => $branchList,
+                'pagination' => $pagination,
             ]);
         }
     }
@@ -172,13 +193,14 @@ class BranchesController extends Controller
      */
     public function actionDelete($id)
     {
-        // if (Yii::$app->user->can('deleteBranch')) {
-            $this->findModel($id)->delete();
+        if(Yii::$app->request->isAjax)
+        {
+            Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
+            return ['status'=>$this->findModel($id)->delete()];
 
-            return $this->redirect(['index']);
-        // } else {
-        //     return $this->redirect(['index']);
-        // }
+            // $this->findModel($id)->delete();
+            // return $this->redirect(['index']);
+        }
     }
 
     public function actionBack()

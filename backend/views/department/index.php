@@ -5,75 +5,82 @@ use yii\grid\GridView;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
-/* @var $this yii\web\View */
-/* @var $searchModel frontend\models\DepartmentSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+use yii\widgets\LinkPager;
 
-$this->title = 'Departments';
+/* @var $this yii\web\View */
+/* @var $searchModel frontend\models\CompanySearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+$this->title = 'Department';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="department-index">
+<div class="alert alert-info alert-dismissible" style="margin-top:5%;display: none" id="completed-message">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <h4>Department Created Successfully</h4>        
+            </div>
+<div class="row" style="margin-top:5%" id="index-content">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <center>
+                <?= Html::button('Create Department', [
+                    'value'=> Url::toRoute('department/create'), 
+                    'class' => 'btn btn-success btn-lg pull-right', 
+                    'id'=>'create-request' ]) 
+                ?>
+                <h1 style="color:#3C8DBC">Department</h1>
+              </center>
+              <?php
+                    Modal::begin([
+                        'header'=>'<h2>Department</h2>',
+                        'id'=>'create-modal',
+                        'size'=>'modal-lg',
+                        'options' => [
+                            'tabindex' => false // important for Select2 to work properly
+                        ],
+                    ]);
+                    echo "<div id='modalContent'></div>";
+                    Modal::end();
+                ?>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="table-index" class="table table-responsive table-bordered table-hover">
+                <thead style="font-size:large">
+                    <tr style="color:#3C8DBC">
+                        <th>Branch Name</th>
+                        <th>Department Name</th>
+                        <th>Company Name</th>
+                        <th>Created Date</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($deptList as $dept): ?>
+                        <tr style="font-size:large">
+                            <td><?= Html::encode("$dept->branch_id") ?></td>
+                            <td><?= Html::encode("$dept->dept_name") ?></td>
+                            <td><?= Html::encode("$dept->company_id") ?></td>
+                            <td><?= Html::encode("$dept->dept_created_date") ?></td>
+                            <td>
+                                <a class="view-request" href="<?= Url::toRoute('/department/view?id='.$dept->dept_id)?>" title="View"><span class="glyphicon glyphicon-eye-open"></span></a>
 
-    <div class="alert alert-info alert-dismissible" style="margin-top:5%;display: none" id="completed-message">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <h4>Customer Created Successfully</h4>        
-    </div>
+                                <a class="update-request" title='Update' href="<?= Url::toRoute('/department/update?id='.$dept->dept_id)?>"><span class="glyphicon glyphicon-pencil"></span></a>
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+                                <a class="delete-request" href="<?= Url::toRoute('/department/delete?id='.$dept->dept_id)?>"><span class="glyphicon glyphicon-trash"></span></a>
+                            </td>
 
-    <p>
-        <!-- <?= Html::a('Create Department', ['create'], ['class' => 'btn btn-success']) ?> -->
-    <?= Html::button('Create Department', [
-            'value'=> Url::toRoute('department/create'), 
-            'class' => 'btn btn-success', 
-            'id'=>'create-request' ]) 
-        ?>
-    </p>
-        <?php
-            Modal::begin([
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+              </table>
+              <div class="pull-right">
+                <?= LinkPager::widget(['pagination' => $pagination]) ?>
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
 
-                'header'=>'<h2>Departments</h2>',
-                'id'=>'create-modal',
-                'size'=>'modal-lg',
-            ]);
-            echo "<div id='modalContent'></div>";
-            Modal::end();
-        ?>
-
-<?php Pjax::begin(['id' => 'formPjax']); ?>    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-
-            'dept_id',
-            [ // this will display the branch name instead of branch id
-                'attribute'=>'branch_id',
-                'value'=>'branch.br_name',
-            ],
-            'dept_name',
-            [ // this will display the company name instead of company id
-                'attribute'=>'company_id',
-                'value'=>'company.company_name',
-            ],
-            'dept_created_date',
-            // 'dept_status',
-
-            ['class' => 'yii\grid\ActionColumn', 
-                // 'visibleButtons' => [
-                //     'update'=> function () {
-                //             return Yii::$app->user->can('updateCompany')?true:false;
-                //     },
-                //     'delete' => function () {
-                //             return Yii::$app->user->can('deleteCompany')?true:false;
-                //     },
-                // ],
-                'buttons' => [
-                    'delete' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url,['class'=>"delete-request"]);
-                    },
-                ],
-            ],
-        ],
-    ]); ?>
-<?php Pjax::end(); ?></div>
+        </div>
+        <!-- /.col -->
+      </div>

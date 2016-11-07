@@ -61,16 +61,31 @@ class CompanyController extends Controller
     {
         $searchModel = new CompanySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $query = Company::find();
+        $pagination = new Pagination([
+            'defaultPageSize' => 10,
+            'totalCount' => $query->count(),
+        ]);
+
+        // limit the query using the pagination and retrieve the result from db
+        $companyList = $query->orderBy('company_name')
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
 
         if(Yii::$app->request->isAjax){ 
             return $this->renderAjax('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
+                // 'searchModel' => $searchModel,
+                // 'dataProvider' => $dataProvider,
+                'companyList' => $companyList,
+                'pagination' => $pagination,
             ]);
         } else {
             return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
+                // 'searchModel' => $searchModel,
+                // 'dataProvider' => $dataProvider,
+                'companyList' => $companyList,
+                'pagination' => $pagination,
             ]);
         }
     }
@@ -138,7 +153,7 @@ class CompanyController extends Controller
                     {
                         if($model->file->extension=='gif'||$model->file->extension=='jpg'||$model->file->extension=='png')
                         {
-                            $model->file->saveAs('../../frontend/web/uploads/'.$imageName.'.'.$model->file->extension);
+                            $model->file->saveAs('../../backend/web/uploads/'.$imageName.'.'.$model->file->extension);
                             // save the path in DB.
                             $model->company_logo = 'uploads/'.$imageName.'.'.$model->file->extension;
                             //return $this->redirect(['view', 'id' => $model->company_id]);
@@ -210,7 +225,7 @@ class CompanyController extends Controller
 
                 if($model->save())
                 {
-                    $model->file->saveAs('uploads/'.$imageName.'.'.$model->file->extension);
+                    $model->file->saveAs('../../backend/web/uploads/'.$imageName.'.'.$model->file->extension);
                     return $this->redirect(['view', 'id' => $model->company_id]);
                 }
             } else {

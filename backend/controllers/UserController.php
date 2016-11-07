@@ -8,6 +8,7 @@ use common\models\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\data\Pagination;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -37,15 +38,32 @@ class UserController extends Controller
     {
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        $query = User::find();
+        $pagination = new Pagination([
+            'defaultPageSize' => 10,
+            'totalCount' => $query->count(),
+        ]);
+
+        // limit the query using the pagination and retrieve the result from db
+        $usersList = $query->orderBy('firstname')
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
         if(Yii::$app->request->isAjax){
             return $this->renderAjax('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
+                // 'searchModel' => $searchModel,
+                // 'dataProvider' => $dataProvider,
+                'usersList' => $usersList,
+                'pagination' => $pagination,
             ]);
         } else {
             return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
+                // 'searchModel' => $searchModel,
+                // 'dataProvider' => $dataProvider,
+                'usersList' => $usersList,
+                'pagination' => $pagination,
             ]);
         }
     }
@@ -137,7 +155,6 @@ class UserController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 

@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use common\models\Customer;
 use common\models\Location;
 use common\models\CustomerSearch;
+use yii\data\Pagination;
 
 /**
  * CustomerController implements the CRUD actions for Customer model.
@@ -51,15 +52,31 @@ class CustomerController extends Controller
         $searchModel = new CustomerSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $query = Customer::find();
+        $pagination = new Pagination([
+            'defaultPageSize' => 10,
+            'totalCount' => $query->count(),
+        ]);
+
+        // limit the query using the pagination and retrieve the result from db
+        $customerList = $query->orderBy('cust_name')
+            ->offset($pagination->offset)
+            ->limit($pagination->limit)
+            ->all();
+
         if(Yii::$app->request->isAjax){
             return $this->renderAjax('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
+                // 'searchModel' => $searchModel,
+                // 'dataProvider' => $dataProvider,
+                'customerList' => $customerList,
+                'pagination' => $pagination,
             ]);
         } else {
             return $this->render('index', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
+                // 'searchModel' => $searchModel,
+                // 'dataProvider' => $dataProvider,
+                'customerList' => $customerList,
+                'pagination' => $pagination,
             ]);
         }
     }
@@ -146,9 +163,14 @@ class CustomerController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if(Yii::$app->request->isAjax)
+        {
+            Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
+            return ['status'=>$this->findModel($id)->delete()];
 
-        return $this->redirect(['index']);
+            // $this->findModel($id)->delete();
+            // return $this->redirect(['index']);
+        }
     }
 
     public function actionLocationDetails()

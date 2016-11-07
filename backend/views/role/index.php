@@ -19,13 +19,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-            <p class="pull-right">
-              <?= Html::a('Add Role', ['create'], ['class' => 'btn btn-success btn-lg']) ?> 
-              <?= Html::a('Add Permission', ['permission'], ['class' => 'btn btn-primary btn-lg']) ?>
+                <h1 class="col-md-offset-5 col-md-3">Roles</h1>
+                <p class="col-md-4">
+                  <?= Html::a('Add Role', ['create'], ['class' => 'btn btn-success btn-lg']) ?> 
+                  <?= Html::a('Add Permission', ['permission'], ['class' => 'btn btn-primary btn-lg']) ?>
             </p>
-              <center>
-                <h1>Roles</h1>
-              </center>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -42,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			            <tr style="font-size:large">
 			                <td><?= Html::encode("$data->name") ?></td>
 			                <td><?= Html::encode("$data->description") ?></td>
-                      <td><a data-method="post" class="" href="<?php echo Url::base()?>/role/delete?name=<?php echo $data->name ?>"><i class="fa fa-trash"></i></a></td>
+                      <td><a class="delete-request" href="<?= Url::toRoute('/role/delete?name='.$data->name)?>"><span class="glyphicon glyphicon-trash"></span></a></td>
 			            </tr>
 			        <?php endforeach; ?>
                 </tbody>

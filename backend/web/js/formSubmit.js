@@ -15,8 +15,13 @@ $('body').on('beforeSubmit', 'form#create-form', function() {
                   // console.log(response);
                 if (response == '1') {
                     $('#create-modal').modal('hide');
-                    $.pjax.reload({ container: '#formPjax'});
-                    $('#completed-message').show();
+                    $( "div#main-content" ).load("#table-index",function(event){
+                        event.preventDefault();
+                        $('#completed-message').css("display", "block");
+                        // $('#completed-message').show();
+                    });
+                    // $.pjax.reload({ container: '#formPjax'});
+                    
                 }
                 else{
                     $form.trigger("reset");

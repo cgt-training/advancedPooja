@@ -26,7 +26,6 @@ use kartik\select2\Select2;
                     <div class="col-sm-9">
                         <?= $form->field($model, 'company_id')->widget(Select2::classname(), [
                                 'data' => $listData,
-                                'language' => 'de',
                                 'pluginOptions' => [
                                     'allowClear' => true
                                 ],

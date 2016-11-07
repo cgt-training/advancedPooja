@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         <tr style="font-size:large">
                             <td>Company Logo</td>
-                            <td><?= Html::img("@web/$model->company_logo") ?></td>
+                            <td><?= Html::img("@web/$model->company_logo", ['width' => '20%']) ?></td>
                         </tr>
 
               </table>

@@ -3,47 +3,64 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
-/* @var $this yii\web\View */
-/* @var $searchModel frontend\models\UserSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+use yii\helpers\Url;
+use yii\bootstrap\Modal;
+use yii\widgets\LinkPager;
 
+/* @var $this yii\web\View */
+/* @var $searchModel frontend\models\CompanySearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
 $this->title = 'Users';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="user-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+<div class="row" style="margin-top:5%" id="index-content">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+              <center>
+                <h1 style="color:#3C8DBC">Users</h1>
+              </center>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="table-index" class="table table-responsive table-bordered table-hover">
+                <thead style="font-size:large">
+                    <tr style="color:#3C8DBC">
+                        <th>FirstName</th>
+                        <th>LastName</th>
+                        <th>Role</th>
+                        <th>UserName</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($usersList as $users): ?>
+                        <tr style="font-size:large">
+                            <td><?= Html::encode("$users->firstname") ?></td>
+                            <td><?= Html::encode("$users->lastname") ?></td>
+                            <td><?= Html::encode("$users->role") ?></td>
+                            <td><?= Html::encode("$users->username") ?></td>
+                            <td>
+                                <a class="view-request" href="<?= Url::toRoute('/user/view?id='.$users->id)?>" title="View"><span class="glyphicon glyphicon-eye-open"></span></a>
 
-    <p>
-        <!-- <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?> -->
-    </p>
-<?php Pjax::begin(); ?>    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+                                <a class="update-request" title='Update' href="<?= Url::toRoute('/user/update?id='.$users->id)?>"><span class="glyphicon glyphicon-pencil"></span></a>
 
-            'id',
-            'firstname',
-            'lastname',
-            'role',
-            'username',
-            // 'auth_key',
-            // 'password',
-            // 'password_reset_token',
-            // 'email:email',
-            // 'status',
-            // 'created_at',
-            // 'updated_at',
+                                <a class="delete-request" href="<?= Url::toRoute('/user/delete?id='.$users->id)?>"><span class="glyphicon glyphicon-trash"></span></a>
+                            </td>
 
-            ['class' => 'yii\grid\ActionColumn', 
-                'buttons' => [
-                    'delete' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url,['class'=>"delete-request"]);
-                    },
-                ],
-            ],
-        ],
-    ]); ?>
-<?php Pjax::end(); ?></div>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+              </table>
+              <div class="pull-right">
+                <?= LinkPager::widget(['pagination' => $pagination]) ?>
+              </div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+        </div>
+        <!-- /.col -->
+      </div>

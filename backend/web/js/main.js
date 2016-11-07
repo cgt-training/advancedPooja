@@ -27,8 +27,10 @@ var deleteData = function(e){
                                 backdrop: true
                             });
                             
-                            pjax_container = jQuery('div[data-pjax-container]').attr('id');
-                            jQuery.pjax.reload({ container: '#' + pjax_container });  
+                            $( "div#main-content" ).load("#table-index");
+                            
+                            // pjax_container = jQuery('div[data-pjax-container]').attr('id');
+                            // jQuery.pjax.reload({ container: '#' + pjax_container });
                             lateBinding();                         
                         }
                     });
@@ -40,7 +42,7 @@ var deleteData = function(e){
 var handleViewLoad = function(e) {
         e.preventDefault();
         var el = jQuery(this);
-
+        
         jQuery.get(el.attr('href'), {}, function(response) {
             jQuery('div#main-content').html(response);
             lateBinding();
@@ -51,6 +53,7 @@ var handleViewLoad = function(e) {
  	jQuery('a.delete-request').on('click',deleteData);
 	jQuery('a.back_to_index').on('click',handleViewLoad);
 	jQuery('a.update-request').on('click',handleViewLoad);
+    jQuery('a.view-request').on('click',handleViewLoad);
 	jQuery('table').on('click', 'a[title]', handleViewLoad);
     $('#create-request').click(function(){
         $('#create-modal').modal('show').find('#modalContent').load($(this).attr('value'));
